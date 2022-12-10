@@ -1,0 +1,222 @@
+<div class="col-md-10 container" style="margin-top: 1%;">
+    <div class="row">
+        <h3 class="col-md-4 container" style="margin-top: 1%; margin-bottom: 2%;"><b>Estadísticas y Gráficos</b></h3>      
+    </div>
+
+    <div class="row col-md-12 ">
+        <div class="col-md-3"></div>
+        <h5 for="fecha1" class="col-md-1">Desde</h5>
+        <input id="fecha1" class="col-md-3" name="fecha1" class="oculto-impresion" type="date"
+            (change)="mesPorEvidencias(fecha1,fecha2)" [(ngModel)]="fecha1">
+        <h5 for="" class="col-md-2 mostrar-impresion oculto">{{fecha1}}</h5>
+        <h5 for="fecha1" class="col-md-1">Hasta</h5>
+        <input id="fecha2" class="col-md-3" name="fecha2" class="oculto-impresion"
+            (change)="mesPorEvidencias(fecha1,fecha2)" type="date" [(ngModel)]="fecha2">
+        <h5 for="" class="col-md-2 mostrar-impresion oculto">{{fecha2}} </h5>
+
+        <button  style="margin-left: 80%" onclick="exportar()"  *ngIf="toggle2 || toggle1"  type="button" class="btn btn-danger col-md-1 oculto-impresion" ><mdb-icon far icon="file-pdf"></mdb-icon>PDF</button>
+
+    </div>
+
+    <div style="margin-bottom: 8%;padding-bottom: 7%; margin-top: 2%;">
+
+        <div id="accordion1" class="col-md-12 oculto-impresion">
+            <div class="card">
+                <div class="card-header" id="headingOne" style="height: 50px;">
+                    <div class="row">
+                        <h5 class="col-md-11" (click)="toggleA1()" data-toggle="collapse" data-target="#collapseOne">
+                            <p>Evidencias Encontradas en el rango de fechas</p>
+                        </h5>                        
+                    </div>
+                </div>
+
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="form-check oculto-impresion"><input id="check1" class="form-check-input" type="checkbox" value=""
+                            id="flexCheckDefault" />
+                        <label class="form-check-label" for="flexCheckDefault">Exportar</label>
+                    </div>
+
+                        <div class="col-md-9 container" style="margin-top: 1%;">
+                            <div class="center-block" style="margin-right: 1%; " name="graph1" id="graph1">
+                                <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
+                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                    [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                        </div>
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Unidad</label>
+                                <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Criterio</label>
+
+                                <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Debilidad</label>
+
+                                <canvas baseChart [data]="pieChartData3" [labels]="pieChartLabels3"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                        </div>
+
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Ámbito Academico</label>
+                                <canvas baseChart [data]="pieChartData4" [labels]="pieChartLabels4"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Ámbito geográfico</label>
+
+                                <canvas baseChart [data]="pieChartData5" [labels]="pieChartLabels5"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                        </div>
+
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Procesos</label>
+                                <canvas baseChart [data]="pieChartData6" [labels]="pieChartLabels6"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Criterio</label>
+
+                                <canvas baseChart [data]="pieChartData7" [labels]="pieChartLabels7"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="accordion2" class="col-md-12  oculto-impresion">
+            <div class="card">
+                <div class="card-header" style="height: 50px; margin-top: 3%;" id="headingOne" data-toggle="collapse" data-target="#collapseOne1">
+                    <div class="row">
+                        <h5 class="col-md-11" (click)="toggleA2()" data-toggle="collapse" data-target="#collapseOne1">
+                            <p>Cantidad de asistentes internos y externos</p>
+                        </h5>                    
+                    </div>
+                </div>
+
+                <div id="collapseOne1"  class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="form-check oculto-impresion"><input id="check1" class="form-check-input" type="checkbox" value=""
+                            id="flexCheckDefault1" />
+                        <label class="form-check-label" for="flexCheckDefault1">Exportar</label>
+                    </div>
+
+                        <div class="col-md-9 container" style="margin-top: 1%;">
+                            <div class="center-block" style="margin-right: 1%; " name="graph1" id="graph1">
+                                <canvas baseChart class="chart" [datasets]="barChartData2" [labels]="barChartLabel2"
+                                    [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                                    [chartType]="barChartType">
+                                </canvas>
+                            </div>
+                        </div>
+
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Suma de asistentes por Unidad</label>
+                                <canvas baseChart [data]="pieChartData8" [labels]="pieChartLabels8"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Suma de asistentes por Critterio</label>
+
+                                <canvas baseChart [data]="pieChartData9" [labels]="pieChartLabels9"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-4">
+                                <label style="text-align: center;">Suma de asistentes por Debilidad</label>
+
+                                <canvas baseChart [data]="pieChartData10" [labels]="pieChartLabels10"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                        </div>
+
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Suma de asistentes por Ámbito academico</label>
+                                <canvas baseChart [data]="pieChartData11" [labels]="pieChartLabels11"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Suma de asistentes por Ámbito geográfico</label>
+
+                                <canvas baseChart [data]="pieChartData12" [labels]="pieChartLabels12"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+
+                        </div>
+
+                        <div class="row center-block" style="margin-top: 3%;">
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Suma de asistentes por Proceso</label>
+                                <canvas baseChart [data]="pieChartData13" [labels]="pieChartLabels13"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <label style="text-align: center;">Suma de asistentes por Criterio</label>
+
+                                <canvas baseChart [data]="pieChartData14" [labels]="pieChartLabels14"
+                                    [chartType]="pieChartType" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                    [colors]="chartColors">
+                                </canvas>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+</div>

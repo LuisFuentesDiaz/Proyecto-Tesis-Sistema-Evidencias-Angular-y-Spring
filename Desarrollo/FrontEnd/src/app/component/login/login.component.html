@@ -1,0 +1,32 @@
+
+
+
+
+
+  <div *ngIf="!isLogged" class="wrapper fadeInDown" style="margin-top: 5%;">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+  
+      <!-- Icon -->
+      <div class="fadeIn first" style="padding: 8%;">
+        <img src="https://portal.ucm.cl//content/uploads/2019/06/logo_ucm_marca.png" id="icon" alt="User Icon" />
+      </div>
+  
+      <!-- Login Form -->
+      <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+        <input type="text" id="login" class="fadeIn second" name="login" placeholder="CORREO" [(ngModel)]="nombreUsuario" required>
+        <input type="password" id="password" class="fadeIn second bac" style="box-shadow: none;" name="login" placeholder="password"  [(ngModel)]="password" required>
+        <input type="submit" class="fadeIn fourth" value="Log In" [disabled] = "!f.valid">
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <div *ngIf="f.submitted && isLoginFails" class="alert alert-danger mt-3">{{errMsj}}</div>
+       
+      </div>
+  
+    </div>
+  </div>
+
+
+

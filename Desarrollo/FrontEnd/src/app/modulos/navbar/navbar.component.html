@@ -1,0 +1,426 @@
+<nav
+  class="navbar navbar-expand-sm bg-dark navbar-dark"
+  style="width: 100%; overflow: hidden; height: 50px"
+>
+  <div *ngIf="isLogged" class="hamburger">
+    <div class="cta">
+      <div id="btn" class="toggle-btn type14"></div>
+    </div>
+  </div>
+
+  <a class="navbar-brand" href="#">
+    <img
+      class="logo"
+      src="https://portal.ucm.cl//content/uploads/2019/01/logo-footer_nuevo.png"
+      style="width: 40%"
+    />
+  </a>
+
+  <!-- Links -->
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item" [routerLink]="['/usuario/mi-perfil']">
+      <a *ngIf="isLogged" class="nav-link" style="color: wheat"
+        ><mdb-icon far icon="user" style="margin-right: 2%"></mdb-icon>Mi
+        Perfil</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        *ngIf="isLogged"
+        class="nav-link"
+        (click)="onLogOut()"
+        style="color: wheat"
+        ><mdb-icon fas icon="sign-out-alt" style="margin-right: 2%"></mdb-icon
+        >Cerrar Sesión</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<div *ngIf="isLogged" class="oculto-impresion" style="width: 10px">
+  <section class="side-bar-warp">
+    <div class="menu-lateral cerrar-barra-lateral flowHide">
+      <nav class="">
+        <li class="nav-item-img">
+          <img
+            id="logo"
+            class="desvanecimientoIsquierdo animacion"
+            style="
+              width: 200px;
+              margin-left: 20px;
+              margin-top: 53px;
+              margin-bottom: 10px;
+              display: none;
+            "
+            src="https://portal.ucm.cl//content/uploads/2019/06/logo_ucm_marca.png"
+            alt=""
+          />
+        </li>
+
+        <ul class="navbar-nav">
+          <div class="card animacion" style="width: 100%">
+            <div class="card-header" [routerLink]="['menu']">
+              <h5 class="mb-0 a">
+                <a>
+                  <mdb-icon fas icon="home"></mdb-icon>
+                </a>
+                <a class="btn btn-link textos" type="button">Inicio </a>
+              </h5>
+            </div>
+          </div>
+
+          <div id="accordion" *ngIf="permisoAdmin">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="tools"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Administrador</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne2"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/usuario']"
+                  >
+                    <mdb-icon fas icon="user-alt"></mdb-icon>
+                    <label type="button" class="b textos">Usuarios</label>
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/debilidad']"
+                  >
+                    <mdb-icon fas icon="thumbs-down"></mdb-icon>
+                    <label type="button" class="b textos">Debilidades</label>
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/unidad']"
+                  >
+                    <mdb-icon fas icon="university"></mdb-icon>
+                    <label type="button" class="b textos">Unidades</label>
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/criterio']"
+                  >
+                    <mdb-icon fas icon="ruler"></mdb-icon>
+                    <label type="button" class="b textos">Criterios</label>
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/proceso']"
+                  >
+                    <mdb-icon fas icon="microchip"></mdb-icon>
+                    <label type="button" class="b textos">Procesos</label>
+                  </li>
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/registro']"
+                  >
+                    <mdb-icon fas icon="cash-register"></mdb-icon>
+                    <label type="button" class="b textos"
+                      >Tipo De Registros</label
+                    >
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/ambito-geografico']"
+                  >
+                    <mdb-icon far icon="flag"></mdb-icon>
+                    <label type="button" class="b textos"
+                      >Ámbito Geográfico</label
+                    >
+                  </li>
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/ambito-academico']"
+                  >
+                    <mdb-icon fas icon="graduation-cap"></mdb-icon>
+                    <label type="button" class="b textos"
+                      >Ámbito Académico</label
+                    >
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="accordion" *ngIf="permisoUsuario">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="clipboard-list"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne3"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Evidencia Usuario</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne3"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    *ngIf="permisoAdmin || permisoUsuario"
+                    [routerLink]="['/evidencia/nueva-evidencia', false]"
+                  >
+                    <mdb-icon fas icon="plus"></mdb-icon>
+                    <label type="button" class="b textos"
+                      >Nueva Evidencia</label
+                    >
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia']"
+                  >
+                    <mdb-icon fas icon="eye"></mdb-icon>
+                    <label type="button" class="b textos">Ver Evidencias</label>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="accordion" *ngIf="permisoResponsable">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="clipboard-list"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne4"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Evidencia Responsable</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne4"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia-responsable']"
+                  >
+                    <mdb-icon fas icon="eye"></mdb-icon>
+                    <label type="button" class="b textos">Ver Evidencias</label>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="accordion" *ngIf="permisoDca">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="clipboard-list"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne5"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Evidencia DAC</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne5"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia-dca']"
+                  >
+                    <mdb-icon fas icon="eye"></mdb-icon>
+                    <label type="button" class="b textos">Ver Evidencias</label>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="accordion" *ngIf="permisoDirector">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="clipboard-list"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne6"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Evidencia Director</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne6"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia/nueva-evidencia']"
+                  >
+                    <mdb-icon fas icon="plus"></mdb-icon>
+                    <label type="button" class="b textos"
+                      >Nueva Evidencia</label
+                    >
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia-director-unidad']"
+                  >
+                    <mdb-icon fas icon="eye"></mdb-icon>
+                    <label type="button" class="b textos">Ver Evidencias</label>
+                  </li>
+
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['/evidencia-director']"
+                  >
+                    <mdb-icon fas icon="suitcase"></mdb-icon>
+                    <label type="button" class="b textos">Mis Evidencias</label>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0 a">
+                  <mdb-icon
+                    fas
+                    icon="chart-line"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseOne2"
+                  ></mdb-icon>
+                  <a
+                    class="btn btn-link textos"
+                    data-toggle="collapse"
+                    data-target="#collapseOne7"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    >Estadísticas</a
+                  >
+                </h5>
+              </div>
+
+              <div
+                id="collapseOne7"
+                class="collapse hide"
+                aria-labelledby="headingOne"
+                data-parent="#accordion"
+              >
+                <div class="card-body">
+                  <li
+                    type="button"
+                    class="text-dentro"
+                    [routerLink]="['graficos/barra']"
+                  >
+                    <mdb-icon fas icon="chart-pie"></mdb-icon>
+                    <label type="button" class="b textos">Gráficos</label>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ul>
+      </nav>
+    </div>
+  </section>
+</div>

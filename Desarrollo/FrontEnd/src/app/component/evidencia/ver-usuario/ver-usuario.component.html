@@ -1,0 +1,578 @@
+<div
+  class="row separar container"
+  style="margin-left: 15%"
+  *ngIf="estado != ''"
+>
+  <h5><b for="form1" class="">Estado De La Evidencia: </b></h5>
+  <h5 *ngIf="estado == 'En Espera'" style="margin-left: 2%; color: green">
+    <b for="form1" class="">{{ estado }}</b>
+  </h5>
+  <h5
+    *ngIf="estado == 'Aprobado Por Responsable'"
+    style="margin-left: 2%; color: green"
+  >
+    <b for="form1" class="">{{ estado }}</b>
+  </h5>
+  <h5 *ngIf="estado == 'Rechazado'" style="margin-left: 2%; color: red">
+    <b for="form1" class="">{{ estado }}</b>
+  </h5>
+  <h5
+    *ngIf="estado == 'Aprobado Por DCA'"
+    style="margin-left: 2%; color: green"
+  >
+    <b for="form1" class="">{{ estado }}</b>
+  </h5>
+</div>
+<button
+  style="margin-left: 80%"
+  *ngIf="estado == 'Aprobado Por DCA' || estado == 'Rechazado'"
+  type="button"
+  class="btn btn-danger"
+  (click)="pdf()"
+>
+  <mdb-icon far icon="file-pdf"></mdb-icon>PDF
+</button>
+
+<div class="container col-md-10" style="padding-top: 3%">
+  <mdb-card
+    style="
+      margin-bottom: 10%;
+      padding-bottom: 4%;
+      padding-left: inherit;
+      padding-right: inherit;
+    "
+  >
+    <img
+      src="../../../assets/imagenes/head_evidencia.png"
+      style="width: 100%"
+    />
+
+    <div class="col-md-12">
+      <div class="row separar">
+        <div class="col-md-2">
+          <h5><b for="">Nº Folio</b></h5>
+        </div>
+        <div class="col-md-4">
+          <b for="">{{ folio }}</b>
+        </div>
+        <div class="col-md-2">
+          <h5><b for="">Fecha Envio</b></h5>
+        </div>
+        <div class="col-md-4">
+          <b for="">{{ fecha }}</b>
+        </div>
+      </div>
+
+      <div class="row separar" *ngIf="usuario">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Usuario</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="usuario.rut"
+            class="form-control"
+          />
+        </div>
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Email</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="usuario.nombreUsuario"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Unidad</b></h5>
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="unidad"
+          >
+            <option *ngFor="let item of unidades" [ngValue]="item">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Proceso</b></h5>
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="proceso"
+          >
+            <option *ngFor="let item of procesos" [ngValue]="item">
+              {{ item.nombre_proceso }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Tipo Registro</b></h5>
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="regristro"
+          >
+            <option *ngFor="let item of regristrs" [ngValue]="item">
+              {{ item.tipo_registro }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Nº Plan de Mejoras</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="numeroPlan"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Ámbito</b></h5>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="ambitoAcademico"
+          >
+            <option *ngFor="let item of ambitoAcademicos" [ngValue]="item">
+              {{ item.nombreAmbito }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Ámbito Geográfico</b></h5>
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="ambitoGeografico"
+          >
+            <option *ngFor="let item of ambitoGeograficos" [ngValue]="item">
+              {{ item.nombre_ambito }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Criterio</b></h5>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            (change)="listarDebilidad(criterio.id)"
+            [(ngModel)]="criterio"
+          >
+            <option *ngFor="let item of criterios" [ngValue]="item">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Debilidad</b></h5>
+        </div>
+        <div class="col-md-4">
+          <select
+            class="browser-default custom-select"
+            [disabled]="true"
+            [compareWith]="compare"
+            [(ngModel)]="debilidade"
+          >
+            <option *ngFor="let item of debilidades" [ngValue]="item">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Descripción</b></h5>
+        </div>
+        <div class="form-group col-md-9">
+          <textarea
+            class="form-control"
+            [disabled]="true"
+            [(ngModel)]="descripcion"
+            rows="5"
+            id="comment"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Resultado</b></h5>
+        </div>
+        <div class="form-group col-md-9">
+          <textarea
+            class="form-control"
+            [disabled]="true"
+            [(ngModel)]="resultado"
+            rows="5"
+            id="comment"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Almacenamiento</b></h5>
+        </div>
+        <div class="col-md-9">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="almacenamiento"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5>
+            <b for="form1" class=""
+              >Unidades y/o Personas Relacionadas a la Evidencia</b
+            >
+          </h5>
+        </div>
+        <div class="form-group col-md-9">
+          <textarea
+            class="form-control"
+            [disabled]="true"
+            [(ngModel)]="presonaRelacionada"
+            rows="5"
+            id="comment"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Palabra Clave</b></h5>
+        </div>
+        <div class="col-md-9">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="palabraClave"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Nombre Corto Evidencia</b></h5>
+        </div>
+        <div class="col-md-9">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="nombreCorto"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row separar" *ngIf="responsable != null">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Responsable</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="responsable.rut"
+            class="form-control"
+          />
+        </div>
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Email</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="responsable.nombreUsuario"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row separar" *ngIf="responsable != null">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Observaciones Responsable</b></h5>
+        </div>
+        <div class="form-group col-md-9">
+          <textarea
+            class="form-control"
+            [disabled]="true"
+            rows="5"
+            [(ngModel)]="observacionResponsable"
+            id="comment"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row separar" *ngIf="dca != null">
+        <div class="col-md-2">
+          <h5><b for="form1" class="">DAC</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="dca.rut"
+            class="form-control"
+          />
+        </div>
+        <div class="col-md-2">
+          <h5><b for="form1" class="">Email</b></h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            mdbInput
+            type="text"
+            [disabled]="true"
+            [(ngModel)]="dca.nombreUsuario"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row separar" *ngIf="dca != null">
+        <div class="col-md-3">
+          <h5><b for="form1" class="">Observaciones DAC </b></h5>
+        </div>
+        <div class="form-group col-md-9">
+          <textarea
+            class="form-control"
+            [disabled]="true"
+            rows="5"
+            [(ngModel)]="observacionDac"
+            id="comment"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row separar">
+        <div class="col-md-6">
+          <h5><b>CANTIDAD ASISTENTES INTERNOS </b></h5>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Autoridades</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="autoridadesI"
+                  name="autoridad_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Administrativos</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="administrativosI"
+                  name="admin_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Docentes</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="docentesI"
+                  name="docente_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Estudiantes</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="estudiantesI"
+                  name="estudiante_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h5><b>CANTIDAD ASISTENTES EXTERNOS </b></h5>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Autoridades</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="autoridadesE"
+                  name="autoridad_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Administrativos</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="administrativosE"
+                  name="admin_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Docentes</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [disabled]="true"
+                  [(ngModel)]="docentesE"
+                  name="docente_interno"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="order-md-2 col-md-12">
+            <div class="row">
+              <div class="col-sm-3 col-lg-3 col-5">
+                <h5><b>Estudiantes</b></h5>
+              </div>
+              <div class="col-7 col-sm col-md-9">
+                <input
+                  [(ngModel)]="estudiantesE"
+                  name="estudiante_interno"
+                  [disabled]="true"
+                  placeholder=""
+                  min="0"
+                  max="2000"
+                  type="number"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      *ngIf="estado == 'Rechazado'"
+      style="float: right"
+      type="button"
+      class="btn btn-info col-3 container"
+      style="margin-top: 5%"
+      [routerLink]="['/evidencia/nueva-evidencia', id]"
+    >
+      Reintentar
+    </button>
+  </mdb-card>
+</div>

@@ -1,0 +1,104 @@
+<div class="container col-md-10" style="margin-top: 1%; height: auto;">
+    <mdb-card style="height: 700px;">
+        <mdb-card-header>
+            <h3>Ámbitos Geográficos</h3>
+            <div class=" col-md-12 row">
+                <div class="col-md-1">
+                    <button id="btn" style="margin-top: 30%;" name="btn" class="btn btn-info" data-toggle="modal"
+                        data-target="#exampleModal">
+                        <mdb-icon fas icon="plus-circle"></mdb-icon>
+                    </button>
+                </div>
+
+                <div class="md-form  col-md-11" id="buscador">
+                    <input mdbInput type="text" [(ngModel)]="filtroUser" class="form-control">
+                    <label for="form1" class="">Buscar Por Nombre</label>
+                </div>
+            </div>
+        </mdb-card-header>
+
+        <mdb-card-body style="overflow-y: auto;">
+
+            <table mdbTable hover="true" class="table-responsive-md  text-center">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>estado</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                <tbody style="overflow: auto;">
+                    <tr *ngFor="let item of ambitos  | filtro: 'nombre_ambito':filtroUser">
+                        <td><a>{{item.id}}</a></td>
+                        <td><a>{{item.nombre_ambito}}</a></td>
+                        <td><a>{{estadoEntrante(item.estado)}}</a></td>
+
+                        <td>
+                            <span  type="button" (click)="ver(item)" data-toggle="modal" data-target="#exampleModal"><mdb-icon far size="2x"  icon="eye" class="brown-text" ></mdb-icon></span>
+                            <span  type="button" (click)="eliminar(item)"><mdb-icon far icon="trash-alt" class="red-text ml-3"  size="2x"></mdb-icon></span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </mdb-card-body>
+        <mdb-card-footer>
+
+        </mdb-card-footer>
+
+    </mdb-card>
+</div>
+
+
+
+
+
+
+
+<div class="close" data-dismiss="modal" data-keyboard="false" class="modal fade" data-backdrop="static"
+    id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form #f="ngForm">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 150%; left: -20%;">
+                <div class="modal-header">
+                    <h3>Registro De Ámbito geográfico</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+
+
+                        <div class="md-form ">
+                            <input mdbInput type="text" name="nombreAmbito" id="nombreAmbito"
+                                [(ngModel)]="nombre_ambito" class="form-control" required>
+                            <label for="nombreRegistro" class="">Nombre Ámbito Geografico</label>
+                        </div>
+
+                        <select *ngIf="mostrar_boton" class="browser-default custom-select" id="estado" name="estado"
+                            [(ngModel)]="estado" required>
+                            <option [ngValue]="true">ACTIVO</option>
+                            <option [ngValue]="false">INACTIVO</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="margin-left: 2%;" *ngIf="!mostrar_boton" mdbWavesEffect class="btn btn-success"
+                        [disabled]="!f.valid" type="button" (click)="create()"> Guardar </button>
+
+                    <button mdbWavesEffect [disabled]="!f.valid" type="button" *ngIf="mostrar_boton"
+                        (click)="actualizar()" class="btn btn-primary">Editar</button>
+
+                    <button mdbWavesEffect #closeAddExpenseModal style="float: right;" type="button"
+                        data-dismiss="modal" class="btn btn-warning" (click)="reset()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,93 @@
+<div class="container col-md-10" style="margin-top: 1%; height: auto; margin-bottom: 5%;">
+    <div class="col-md-12">
+        <h3 style="text-align: center;">Mi Perfil</h3>
+    </div>
+    <div class="row">
+        <div class="row col-md-6">
+            <mdb-card class="col-md-12" style="margin-top: 5%; ">
+                <div class="col-md-12" style="margin-top: 4%;">
+                    <div class="row col-md-12">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-7">
+                            <img class="logo" src="http://localhost:4200/assets/imagenes/user.png" style="width: 40%;">
+
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 5%; margin-bottom: 5%;">
+                        <h4> Información  personal </h4>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Rut : {{usuario.id}} </h5>
+                    </div>
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Rut : {{usuario.rut}} </h5>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Nombre : {{usuario.nombre}} </h5>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Apellido : {{usuario.apellido}} </h5>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Correo : {{usuario.nombreUsuario}} </h5>
+                    </div>
+
+                    <div class="col-md-12" *ngIf="usuario">
+                        <h5>Unidad : {{usuario.unidad.nombre}} </h5>
+                    </div>
+                    <div *ngIf="pieChartLabels.length > 0 && pieChartLabels2.length >0 && pieChartLabels3.length > 0">
+                    <h5 style="margin-top: 2%; margin-top: 30%;">Cantidad de evidencias realizadas por Unidad como Usuario</h5>
+                    <div class="col-md-12 container">
+                        <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+                </div>
+            </mdb-card>
+        </div>
+        <div class="row col-md-6">
+
+            <mdb-card class="col-md-12" style="margin-top: 5%; text-align: center; margin-left: 5%;"
+                *ngIf="pieChartLabels.length > 0">
+                <h5 style="margin-top: 2%;">Cantidad de evidencias realizadas por Unidad como Usuario</h5>
+
+                <div class="col-md-10 container">
+                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="chartColors">
+                    </canvas>
+                </div>
+            </mdb-card>
+
+
+            <mdb-card class="col-md-12" style="margin-top: 5%; text-align: center; margin-left: 5%;"
+                *ngIf="pieChartLabels2.length > 0">
+                <h5 style="margin-top: 2%;">Cantidad de evidencias aprobadas y rechazadas como Responsable</h5>
+
+                <div class="col-md-10 container">
+                    <canvas baseChart [data]="pieChartData2" [labels]="pieChartLabels2" [chartType]="pieChartType"
+                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="chartColors">
+                    </canvas>
+                </div>
+            </mdb-card>
+
+
+            <mdb-card class="col-md-12" style="margin-top: 5%; text-align: center; margin-left: 5%;"
+                *ngIf="pieChartLabels3.length > 0">
+                <h5 style="margin-top: 2%;">Cantidad de evidencias aprobadas y rechazadas como Dac</h5>
+
+                <div class="col-md-10 container">
+                    <canvas baseChart [data]="pieChartData3" [labels]="pieChartLabels3" [chartType]="pieChartType"
+                        [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="chartColors">
+                    </canvas>
+                </div>
+            </mdb-card>
+        </div>
+    </div>
+
+</div>

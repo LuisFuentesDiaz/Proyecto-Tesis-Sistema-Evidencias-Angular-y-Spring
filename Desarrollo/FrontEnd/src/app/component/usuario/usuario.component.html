@@ -1,0 +1,169 @@
+<div class="container col-md-10" style="margin-top: 1%; height: auto;">
+    <mdb-card style="height: 700px;">
+        <mdb-card-header>
+            <h3>Usuarios</h3>
+            <div class=" col-md-12 row">
+                <div class="col-md-1">
+                    <button id="btn" style="margin-top: 30%;" name="btn" class="btn btn-info" data-toggle="modal"
+                        data-target="#exampleModal">
+                        <mdb-icon fas icon="plus-circle"></mdb-icon>
+                    </button>
+                </div>
+
+                <div class="md-form  col-md-11" id="buscador">
+                    <input mdbInput type="text" [(ngModel)]="filtroUser" class="form-control">
+                    <label for="form1" class="">Buscar Por Rut</label>
+
+                </div>
+
+            </div>
+        </mdb-card-header>
+
+        <mdb-card-body style="overflow-y: auto;">
+
+            <table mdbTable hover="true" class="table-responsive-md  text-center">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>UNIDAD</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                <tbody style="overflow: auto;">
+                    <tr *ngFor="let item of usuarios | filtro: 'rut':filtroUser">
+                        <td>{{item.rut}}</td>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.apellido}}</td>
+                        <td>{{item.nombreUsuario}}</td>
+                        <td>{{item.unidad.nombre}}</td>
+
+
+                        <td>
+
+                            <span type="button" (click)="ver(item)" data-toggle="modal" data-target="#exampleModal">
+                                <mdb-icon far size="2x" icon="eye" class="brown-text"></mdb-icon>
+                            </span>
+                            <span type="button" (click)="eliminar(item)">
+                                <mdb-icon far icon="trash-alt" class="red-text ml-3" size="2x"></mdb-icon>
+                            </span>
+
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </mdb-card-body>
+        <mdb-card-footer>
+
+        </mdb-card-footer>
+
+    </mdb-card>
+</div>
+
+
+
+
+
+
+
+<div class="close" data-dismiss="modal" data-keyboard="false" class="modal fade" data-backdrop="static"
+    id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form #f="ngForm" novalidate>
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 150%; left: -20%;">
+                <div class="modal-header">
+                    <h3>Registro De Usuarios</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="container">
+
+                        <div class="md-form" style="width:100%;">
+                            <input mdbInput type="text" [disabled]="mostrar_boton" [(ngModel)]="userRut" width="100%"
+                                name="rut_user" id="rut_user" class="form-control" required>
+                            <label for="id" class="">Rut</label>
+                        </div>
+                        <div class="row ">
+                            <div class="md-form col-md-6">
+                                <input mdbInput type="text" [(ngModel)]="nombre" name="nombre_user" id="nombre_user"
+                                    class="form-control" required>
+                                <label for="nombre" class="">Nombres</label>
+                            </div>
+                            <div class="md-form col-md-6">
+                                <input mdbInput type="text" [(ngModel)]="apellido" name="apellido_user"
+                                    id="apellido_user" class="form-control" required>
+                                <label for="apellido_user" style="left: auto;" class="">Apellidos</label>
+                            </div>
+                        </div>
+                        <div class="md-form">
+                            <input mdbInput type="text" [(ngModel)]="nombreUsuario" style="width:100%" name="email"
+                                id="email" class="form-control" required>
+                            <label for="email" style="left: auto;" class="">Email</label>
+                        </div>
+                        <div class="md-form" style="width:100%;" *ngIf="!mostrar_boton">
+                            <input mdbInput type="password" [(ngModel)]="password" style="width:100%" name="password"
+                                id="password" class="form-control" required>
+                            <label for="password" class="">Password</label>
+                        </div>
+
+                        <label for="unidad" class="">Unidad</label>
+
+                        <mdb-card style="margin-bottom:3% ;">
+
+                            <select required [compareWith]="compare" class="browser-default custom-select" id="unidad"
+                                name="unidad" [(ngModel)]="unidadSeleccionada">
+                                <option *ngFor="let unidades of unidades" [ngValue]="unidades">{{unidades.nombre}}
+                                </option>
+
+                            </select>
+
+                        </mdb-card>
+                        <label for="unidad" class="">Roles</label>
+                        <mdb-card>
+                            <input style="width: 100%;" type="button" value="'ctrl + click' para multi seleccion ">
+                            <div class="card">
+                                <select (click)="a()" multiple [compareWith]="compare"
+                                    class="browser-default custom-select" id="roles" name="roles"
+                                    [(ngModel)]="rolesSeleccionados" required>
+                                    <option *ngFor="let roles of roles" [ngValue]="roles">{{roles.rolNombre}}</option>
+                                </select>
+                                <input disabled style="width: 100%;" type="text" placeholder="{{rolesSubmit}}">
+                            </div>
+                        </mdb-card>
+                        <label for="unidad" class="" *ngIf="mostrar_boton" style="margin-top: 2%;">Estado</label>
+                        <select  *ngIf="mostrar_boton" class="browser-default custom-select"  id="estado" name="estado"
+                            [(ngModel)]="estado" required>
+                            <option [ngValue]="true">ACTIVO</option>
+                            <option [ngValue]="false">INACTIVO</option>
+
+                        </select>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button style="margin-left: 2%;" mdbWavesEffect class="btn btn-success" type="button" type="submit"
+                        (click)="onRegistro()" [disabled]="!f.valid" *ngIf="!mostrar_boton"> Guardar </button>
+
+                    <button mdbWavesEffect *ngIf="mostrar_boton" type="button" class="btn btn-primary"
+                        (click)="editar()" [disabled]="!f.valid">Editar</button>
+
+                    <button mdbWavesEffect (click)="reset()" style="float: right;" type="button" data-dismiss="modal"
+                        #closeAddExpenseModal class="btn btn-warning">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

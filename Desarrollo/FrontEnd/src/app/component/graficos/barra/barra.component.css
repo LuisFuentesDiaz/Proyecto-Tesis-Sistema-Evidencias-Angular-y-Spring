@@ -1,0 +1,18 @@
+@media print{
+    .oculto-impresion, .oculto-impresion *{
+      display: none !important;
+    }
+  }
+@media print{
+    .mostrar-impresion, .mostrar-impresion *{
+      display: block !important;
+    }
+  }
+
+.oculto{
+  display: none;
+}
+
+
+  
+  

@@ -1,0 +1,401 @@
+
+
+body{    
+    font-family: 'Comfortaa';
+}
+::-moz-selection {
+    color: #fff;
+    background: #b80100;
+}
+::selection {
+    color: #fff;
+    background: #b80100;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #F5F5F5;
+   
+}
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+   
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #b80100;
+    
+}
+
+/*===========================SUPPORT CLASS===========================*/
+
+.trans{
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+
+.flowHide{
+    overflow: hidden;
+}
+
+
+/*===========================NAVBAR START===========================*/
+
+.bg-dark {
+    background-color:#0f3969!important;
+}
+
+.navbar {    
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+/*HAMBURGER START*************************/
+
+.hamburger {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px 0px 0px;
+    margin-left: -15px;
+    transition: all 1s ease;
+}
+
+.cta {
+  height: 50px;
+  width: 50px;
+  cursor: pointer; }
+
+.toggle-btn {
+  height: 2px;
+  width: 25px;
+  background-color: #fff;
+  position: relative;
+  top: 50%;
+  left: 0;
+  margin: auto;
+  transition: all 0.3s ease-in-out; 
+}
+  .toggle-btn:before {
+    content: "";
+    height: 2px;
+    width: 25px;
+    box-shadow: 0 -10px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out; 
+}
+  .toggle-btn:after {
+    content: "";
+    height: 2px;
+    width: 25px;
+    box-shadow: 0 10px 0 0 #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-in-out; 
+}
+
+.activo .type14 {
+  background-color: #fff;
+  width: 12px;
+  margin: auto; 
+}
+  .activo .type14:before {
+    width: 6px; 
+}
+  .activo .type14:after {
+    width: 25px;
+}
+
+/*HAMBURGER END*************************/
+
+.nav-item .nav-link{
+    display: block;
+    color:black;
+    font-size:19px;   
+    position: relative;
+    white-space: nowrap;
+
+}
+
+.nav-item-img{
+    display: block;
+    color:black;
+    font-size:19px;   
+    position: relative;
+    white-space: nowrap;
+
+}
+
+.user-icon{
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    background-color: #b80100;
+    border-radius: 50px;
+}
+
+
+@media (min-width: 576px){
+.navbar-expand-sm .navbar-nav .nav-link {    
+    margin-left: 15px;
+}
+    }
+
+/*============================SIDE BAR START============================*/
+.menu-lateral {   
+    position: fixed;
+    z-index: 99;
+    height: 100vh;
+    display: inline-block;
+    background-color: white;     
+    box-shadow: 9px 0px 16px 0 rgba(0,0,0,0.2), 9px 0px 20px 0 rgba(0,0,0,0.19);
+    display: block;
+    min-height: 100%; 
+    transition: all .3s cubic-bezier(.55,0,.1,1);    
+/*    transform: translate3d(-200px,0,0);*/
+}
+
+.menu-lateral .navbar-nav .nav-link {
+    padding: 15;
+    position: relative;
+    white-space: nowrap;
+   
+    
+}
+
+.menu-lateral .navbar-nav .nav-link img{
+    margin-bottom:5px;
+}
+.menu-lateral .nav-link:hover {
+       background-color: #c8c8c8;
+}
+
+/*SMALL SIDE BAR****************/
+.abrir-barra-lateral {
+    width: 260px!important;
+     transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+.cerrar-barra-lateral{
+    width:50px;
+     transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+}
+
+.link-nav-nombre{
+    position: relative;
+    margin-left: 15px;
+    
+}
+.link-nav-nombre {
+    position: absolute;
+    white-space: nowrap;
+    transition: opacity 0.4s ease-out 0s;
+    border-radius: 0.6rem;
+    padding: 4px 10px;
+    top: 9px;
+    left: 50px;
+   
+}
+.barra-activa > .barra-visible{
+    display: inline-block !important; 
+    position: absolute;
+    white-space: nowrap;
+    transition: opacity 0.4s ease-out 0s; 
+    border-radius: 0.6rem;
+    padding: 4px 10px;
+    top: 9px;
+    left: 50px;
+    
+}
+
+.barra-visible-img{
+    display: inline-block !important; 
+    white-space: nowrap;
+    transition: opacity 0.4s ease-out 0s; 
+    border-radius: 0.6rem;
+    padding: 4px 10px;
+    top: 9px;
+    left: 50px;
+    
+}
+
+.barra-activa > .barra-visible::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -16px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+   
+}
+.nombre-oculto{
+    display: none;
+}
+
+
+/*///////////////ANIMATEED///////////////*/
+.animacion {
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    animation: mymove 1s ;
+    animation-iteration-count: 1;
+}
+
+/*FADE IN RIGHT*/
+
+.desvanecimientoIsquierdo {
+    -webkit-animation-name: desvanecimientoIsquierdo;
+    animation-name: desvanecimientoIsquierdo;
+}
+
+
+@keyframes desvanecimientoIsquierdo{
+    
+    0% {
+    opacity: 0;
+    -webkit-transform: translate3d(20%, 0, 0);
+    transform: translate3d(20%, 0, 0);
+}
+100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+}
+
+
+
+.content{
+    padding-top:120px;
+}
+
+
+
+
+
+.btn-link:focus, .btn-link.focus {
+    text-decoration: underline;
+    box-shadow: none;
+}
+
+.card-body {
+
+    background-color: whitesmoke;
+
+}
+.card-header:first-child {
+    background-color: white;
+    border-bottom: 1px;
+}
+
+
+
+
+
+/*configuracion de los botones*/
+
+
+a.btn.btn-link.textos {
+    font-size: 20px;
+}
+li.text-dentro:focus {
+    outline: none;
+}
+
+.card-header:focus {
+    outline: none;
+}
+
+button.btn.btn-link.textos {
+    font-size: 19px;
+}
+
+.a{
+    height: 40px;
+    width: 252px;
+}
+.b{
+    font-size: 20px;
+    margin-left: 14px;
+}
+
+/*///////////////////// */
+
+
+
+
+@media print{
+    .oculto-impresion, .oculto-impresion *{
+      display: none !important;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

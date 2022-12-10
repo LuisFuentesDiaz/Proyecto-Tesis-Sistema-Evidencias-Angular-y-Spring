@@ -1,0 +1,63 @@
+<div class="container col-md-10" style="margin-top: 1%; height: auto;">
+    <mdb-card style="height: 700px;">
+        <mdb-card-header>
+            <h3>Evidencias</h3>
+          
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="md-form  col-md-4" id="buscador">
+                    <input mdbInput type="text" [(ngModel)]="filtroUser" class="form-control">
+                    <label for="form1" class="">Buscar Por Codigo</label>
+                </div>
+                <div class="col-md-4" style="margin-left: 24%;padding-top: 2%;">
+                    <label for="" class="col-md-5"> Mostrar por estado </label>
+                    <select [compareWith]="compare" class="browser-default custom-select col-md-7" id="unidad"
+                        name="unidad" (change)="listarEvidencias(usuario.unidad.id,mostrar)" [(ngModel)]="mostrar" required>
+                        <option value="1"> En Espera </option>
+                        <option value="2"> Aprobado </option>
+                        <option value="3"> Rechazado </option>
+                    </select>
+                </div>
+            </div>
+
+           
+        </mdb-card-header>
+
+        <mdb-card-body style="overflow-y: auto;">
+
+            <table mdbTable hover="true" class="table-responsive-md  text-center">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Proceso</th>
+                        <th>Tipo De Registro</th>
+                        <th>Debilidad</th>
+                        <th>Criterio</th>
+                        <th>estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody style="overflow: auto;">
+                    <tr *ngFor="let evi of evidencias | filtro: 'codigo':filtroUser">
+                        <td><a>{{evi.codigo}}</a></td>
+                        <td><a>{{evi.proceso.nombre_proceso}}</a></td>
+                        <td><a>{{evi.registro.tipo_registro}}</a></td>
+                        <td><a>{{evi.debilidad.nombre}}</a></td>
+                        <td><a>{{evi.criterio.nombre}}</a></td>
+
+                        <td *ngIf="evi.estadoResponsable == 'En Espera'"><mdb-card style="background-color: rgb(219, 151, 24);"> <a>{{evi.estadoResponsable}}</a> </mdb-card></td>
+                        <td  *ngIf="evi.estadoResponsable == 'Aprobado'"> <a> <mdb-icon style="color: green;" fas icon="check"></mdb-icon> </a> </td>
+                        <td  *ngIf="evi.estadoResponsable == 'Rechazado'"><a><mdb-icon style="color: red;" fas icon="times"></mdb-icon> </a> </td>
+
+
+                        <td>
+                            <span [routerLink]="['/evidencia/ver-evidencia-responsable',evi]"><mdb-icon far size="2x" icon="eye" class="brown-text" ></mdb-icon></span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </mdb-card-body>
+    </mdb-card>
+</div>
